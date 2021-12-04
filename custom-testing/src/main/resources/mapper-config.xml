@@ -39,6 +39,7 @@
     <!-- 加载映射文件 -->
     <mappers>
         <mapper resource="mapper/Account.xml"/>
+        <mapper resource="mapper/User.xml"/>
     </mappers>
 
     <!--  mybatis 全局配置  -->

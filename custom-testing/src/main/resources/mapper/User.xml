@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:命名空间,做sql隔离 -->
+<mapper namespace="com.mybatis.testing.mapper.UserMapper">
+    <!--  启用缓存  -->
+    <cache/>
+    <!--
+    id:sql语句唯一标识
+    parameterType:指定传入参数类型
+    resultType:返回结果集类型
+    #{}占位符:起到占位作用,如果传入的是基本类型(string,long,double,int,boolean,float等),那么#{}中的变量名称可以随意写.
+     -->
+    <select id="queryById" parameterType="java.lang.Integer" resultType="com.mybatis.testing.entity.User">
+        select * from t_user_base where id=#{userId}
+    </select>
+
+
+    <!--
+    #{}:如果传入的是pojo类型,那么#{}中的变量名称必须是pojo中对应的属性.属性.属性.....
+    如果要返回数据库自增主键:可以使用select LAST_INSERT_ID()
+     -->
+    <insert id="insert" parameterType="com.mybatis.testing.entity.User">
+        <!-- 执行 select LAST_INSERT_ID()数据库函数,返回自增的主键
+        keyProperty:将返回的主键放入传入参数的Id中保存.
+        order:当前函数相对于insert语句的执行顺序,在insert前执行是before,在insert后执行是AFTER
+        resultType:id的类型,也就是keyproperties中属性的类型
+        -->
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into t_user_base (name,age,addr,email,mobile) values(#{name},#{age},#{addr},#{email},#{mobile})
+    </insert>
+
+</mapper>

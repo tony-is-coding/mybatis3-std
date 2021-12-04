@@ -10,5 +10,5 @@ public interface AccountMapper {
 
     Account findByUserId();
 
-    void insert(Account account);
+    Integer insert(Account account);
 }

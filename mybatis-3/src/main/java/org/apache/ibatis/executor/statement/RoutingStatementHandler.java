@@ -37,7 +37,7 @@ public class RoutingStatementHandler implements StatementHandler {
   private final StatementHandler delegate;
 
   // 装饰器模式 路由语句处理器
-  // 居于 MappedStatement 的类型来决定具体的handler类, 不做任何其他的处理逻辑
+  // 基于 MappedStatement 的类型来决定具体的handler类, 不做任何其他的处理逻辑
   // 实际上毫无意义
   public RoutingStatementHandler(Executor executor, MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
 
