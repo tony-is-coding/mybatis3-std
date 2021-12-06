@@ -31,6 +31,7 @@ import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ResultSetType;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.util.ReaderHelper;
 
 /**
  * @author Clinton Begin
@@ -43,6 +44,7 @@ public class PreparedStatementHandler extends BaseStatementHandler {
 
   @Override
   public int update(Statement statement) throws SQLException {
+    ReaderHelper.tip("准备好statement, 下一步执行到db");
     PreparedStatement ps = (PreparedStatement) statement;
     ps.execute();
     int rows = ps.getUpdateCount();
@@ -54,12 +56,14 @@ public class PreparedStatementHandler extends BaseStatementHandler {
 
   @Override
   public void batch(Statement statement) throws SQLException {
+    ReaderHelper.tip("准备好statement, 下一步执行到db");
     PreparedStatement ps = (PreparedStatement) statement;
     ps.addBatch();
   }
 
   @Override
   public <E> List<E> query(Statement statement, ResultHandler resultHandler) throws SQLException {
+    ReaderHelper.tip("准备好statement, 下一步执行到db");
     PreparedStatement ps = (PreparedStatement) statement;
     ps.execute();
     return resultSetHandler.handleResultSets(ps);
@@ -67,6 +71,7 @@ public class PreparedStatementHandler extends BaseStatementHandler {
 
   @Override
   public <E> Cursor<E> queryCursor(Statement statement) throws SQLException {
+    ReaderHelper.tip("准备好statement, 下一步执行到db");
     PreparedStatement ps = (PreparedStatement) statement;
     ps.execute();
     return resultSetHandler.handleCursorResultSets(ps);
@@ -91,6 +96,7 @@ public class PreparedStatementHandler extends BaseStatementHandler {
 
   @Override
   public void parameterize(Statement statement) throws SQLException {
+    ReaderHelper.tip("设置参数");
     parameterHandler.setParameters((PreparedStatement) statement);
   }
 

@@ -31,6 +31,7 @@ import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeException;
 import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.TypeHandlerRegistry;
+import org.apache.ibatis.util.ReaderHelper;
 
 /**
  * @author Clinton Begin
@@ -58,8 +59,11 @@ public class DefaultParameterHandler implements ParameterHandler {
     return parameterObject;
   }
 
+
+  // 将参数设置绑定到对应的PreparedStatement 上
   @Override
   public void setParameters(PreparedStatement ps) {
+    ReaderHelper.tip("参数绑定");
     ErrorContext.instance().activity("setting parameters").object(mappedStatement.getParameterMap().getId());
     List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
     if (parameterMappings != null) {

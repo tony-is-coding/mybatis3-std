@@ -54,7 +54,7 @@ public class BatchExecutor extends BaseExecutor {
   @Override
   public int doUpdate(MappedStatement ms, Object parameterObject) throws SQLException {
     final Configuration configuration = ms.getConfiguration(); // 获取配置
-    // 获取 statement 语句处理器
+    // 获取 statement 语句处理器, executor 每次query或者update动作都会创建一个StatementHandler对象
     final StatementHandler handler = configuration.newStatementHandler(this, ms, parameterObject,
       RowBounds.DEFAULT, null, null);
     final BoundSql boundSql = handler.getBoundSql();

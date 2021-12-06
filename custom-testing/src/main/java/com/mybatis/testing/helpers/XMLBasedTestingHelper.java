@@ -8,6 +8,7 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.apache.ibatis.util.ReaderHelper;
 
 public class XMLBasedTestingHelper {
     private final String resourcePath;
@@ -32,6 +33,7 @@ public class XMLBasedTestingHelper {
             e.printStackTrace();
             return;
         }
+        ReaderHelper.tip("开始调试...");
         this.sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream); // 创建一个 SqlSessionFactory
     }
 

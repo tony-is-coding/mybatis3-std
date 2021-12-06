@@ -24,6 +24,7 @@ import org.apache.ibatis.builder.xml.XMLConfigBuilder;
 import org.apache.ibatis.exceptions.ExceptionFactory;
 import org.apache.ibatis.executor.ErrorContext;
 import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
+import org.apache.ibatis.util.ReaderHelper;
 
 /**
  * Builds {@link SqlSession} instances.
@@ -75,7 +76,9 @@ public class SqlSessionFactoryBuilder {
   public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
     try {
       XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);
-      return build(parser.parse());
+      ReaderHelper.tip("准备解析xml树并生成全局上下文Configuration");
+      Configuration config = parser.parse();
+      return build(config);
     } catch (Exception e) {
       throw ExceptionFactory.wrapException("Error building SqlSession.", e);
     } finally {
@@ -89,6 +92,7 @@ public class SqlSessionFactoryBuilder {
   }
 
   public SqlSessionFactory build(Configuration config) {
+    ReaderHelper.tip("完成configuration组装,生成一个默认的SqlSessionFactory");
     return new DefaultSqlSessionFactory(config);
   }
 

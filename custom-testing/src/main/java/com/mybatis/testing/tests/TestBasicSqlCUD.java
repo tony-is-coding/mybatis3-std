@@ -1,8 +1,8 @@
 package com.mybatis.testing.tests;
 
 
-
 import com.mybatis.testing.entity.User;
+import com.mybatis.testing.helpers.LoggerHelper;
 import com.mybatis.testing.helpers.RandomHelper;
 import com.mybatis.testing.helpers.XMLBasedTestingHelper;
 import com.mybatis.testing.mapper.UserMapper;
@@ -31,7 +31,7 @@ public class TestBasicSqlCUD {
 
     @Test
     public void testInsertBatchSuccess() {
-
+        LoggerHelper.log("this is a helper test");
     }
 
 }
