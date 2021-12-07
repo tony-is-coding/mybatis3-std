@@ -35,6 +35,7 @@ public class XMLBasedTestingHelper {
         }
         ReaderHelper.tip("开始调试...");
         this.sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream); // 创建一个 SqlSessionFactory
+        ReaderHelper.tip("");
     }
 
     public SqlSessionFactory getSqlSessionFactory() {
@@ -43,6 +44,11 @@ public class XMLBasedTestingHelper {
 
     public SqlSession openSession() {
         return this.sqlSessionFactory.openSession();
+    }
+
+
+    public SqlSession autoCommittedSession() {
+        return this.sqlSessionFactory.openSession(true);
     }
 
 }

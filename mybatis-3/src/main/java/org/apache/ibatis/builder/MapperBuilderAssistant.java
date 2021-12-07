@@ -128,7 +128,7 @@ public class MapperBuilderAssistant extends BaseBuilder {
       boolean readWrite,
       boolean blocking,
       Properties props) {
-    //README: 这里创建了一个
+    //README: 这里创建了一个缓存,
     Cache cache = new CacheBuilder(currentNamespace)
         .implementation(valueOrDefault(typeClass, PerpetualCache.class))
         .addDecorator(valueOrDefault(evictionClass, LruCache.class))

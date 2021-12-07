@@ -1,0 +1,1 @@
+### What Happened On Mybatis Application Initializing 

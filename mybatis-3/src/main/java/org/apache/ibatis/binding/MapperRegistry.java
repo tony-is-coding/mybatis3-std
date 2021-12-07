@@ -34,6 +34,12 @@ import org.apache.ibatis.session.SqlSession;
 public class MapperRegistry {
 
   private final Configuration config;
+
+  public Configuration getConfig(){
+    return config;
+  }
+
+  // 所有的
   private final Map<Class<?>, MapperProxyFactory<?>> knownMappers = new HashMap<>();
 
   public MapperRegistry(Configuration config) {

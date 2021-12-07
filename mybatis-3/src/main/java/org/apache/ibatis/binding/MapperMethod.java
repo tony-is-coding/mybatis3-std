@@ -63,7 +63,8 @@ public class MapperMethod {
     switch (command.getType()) {
       case INSERT: {
         Object param = method.convertArgsToSqlCommandParam(args);
-        result = rowCountResult(sqlSession.insert(command.getName(), param));
+        int rowCount = sqlSession.insert(command.getName(), param);
+        result = rowCountResult(rowCount);
         break;
       }
       case UPDATE: {
@@ -312,6 +313,7 @@ public class MapperMethod {
     }
 
     public Object convertArgsToSqlCommandParam(Object[] args) {
+      ReaderHelper.tip("java查询参数转换为sql命名参数");
       return paramNameResolver.getNamedParams(args);
     }
 

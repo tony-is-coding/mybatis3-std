@@ -15,11 +15,13 @@ public class TestBasicSqlQuery {
     //  2.2.1 BaseExecutor 属于典型的模板方法模式, 下分出: batch,reuse, simple, closed 四类 执行器
     //  2.2.2 CachingExecutor 则是指缓存执行器
     //  2.2.3  mybatis中有所谓的一级缓存,二级缓存说法;
-    //         一级缓存默认开启, 在 BaseExecutor的query中具体实现, 由PerpetualCache实现,一级缓存是 sqlSession绑定的,
-    //             在BaseExecutor的构造方法中默认初始了一个由PerpetualCache实例
+    //         一级缓存默认开启, 在 BaseExecutor的query中具体实现, 由PerpetualCache实现,一级缓存是 sqlSession绑定的, 在openSession
+    //              创建session时会船舰对应的 executor, 每个executor持有单独的一个 本地cache
+    //              在BaseExecutor的构造方法中默认初始了一个 PerpetualCache 实例
     //         二级缓存默认关闭, 在CachingExecutor中实现, 为了解决脏读问题, 分化出了 全局缓存Cache 与事务缓存 TransactionCache,
-    //              Transaction是基于装饰模式对Cache接口实现包装以达到对事务支持的功能; 二级缓存是 NameSpace级别共享的,
-    //              默认的配置是 LruCache 作为实现类
+    //              Transaction是基于装饰模式对Cache接口实现包装以达到对事务支持的功能;
+    //              二级缓存是 NameSpace级别共享的, 由全局的上下文Configuration对象持有的MappedStatement来持有 默认实现是 LruCache
+    //              由configuration.addMapper -> MapperBuilderAssistant.useNewCache 创建
 
 
     @Test

@@ -21,6 +21,13 @@
         <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
     </settings>
 
+    <plugins>
+        <plugin interceptor="com.mybatis.testing.plugins.ExamplePlugin">
+            <property name="someProperty" value="100"/>
+        </plugin>
+    </plugins>
+
+
     <environments default="development">
         <environment id="development">
             <!-- 使用jdbc事务管理 -->
@@ -40,11 +47,19 @@
     <mappers>
         <mapper resource="mapper/Account.xml"/>
         <mapper resource="mapper/User.xml"/>
+        <!--    基于网络地址指定    -->
+        <!--        <mapper url="xxxxxxx" />-->
+        
+<!--        <mapper class="com.mybatis.testing.mapper.UserMapper"/>-->
+<!--        <mapper class="com.mybatis.testing.mapper.AccountMapper"/>-->
+
+        <!--    基于包地址指定    -->
+        <!--        <package name="com.mybatis.testing.mapper"/>-->
+
     </mappers>
 
     <!--  mybatis 全局配置  -->
 
 </configuration>
-
 
 

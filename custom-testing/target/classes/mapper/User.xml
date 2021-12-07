@@ -28,9 +28,20 @@
         resultType:id的类型,也就是keyproperties中属性的类型
         -->
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-            select LAST_INSERT_ID()
+            select LAST_INSERT_ID() as id
         </selectKey>
         insert into t_user_base (name,age,addr,email,mobile) values(#{name},#{age},#{addr},#{email},#{mobile})
+    </insert>
+
+
+
+    <insert id="batchInsert" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+        INSERT INTO
+        t_user_base (name,age,addr,email,mobile)
+        VALUES
+        <foreach collection="list" item="user" index="index" separator=",">
+            (#{user.name},#{user.age},#{user.addr},#{user.email},#{user.mobile})
+        </foreach>
     </insert>
 
 </mapper>

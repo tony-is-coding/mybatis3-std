@@ -19,9 +19,7 @@ import java.sql.BatchUpdateException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import org.apache.ibatis.cursor.Cursor;
 import org.apache.ibatis.executor.keygen.Jdbc3KeyGenerator;

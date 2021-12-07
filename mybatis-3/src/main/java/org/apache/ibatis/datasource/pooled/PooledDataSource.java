@@ -152,8 +152,7 @@ public class PooledDataSource implements DataSource {
   /**
    * Sets the default network timeout value to wait for the database operation to complete. See {@link Connection#setNetworkTimeout(java.util.concurrent.Executor, int)}
    *
-   * @param milliseconds
-   *          The time in milliseconds to wait for the database operation to complete.
+   * @param milliseconds The time in milliseconds to wait for the database operation to complete.
    * @since 3.5.2
    */
   public void setDefaultNetworkTimeout(Integer milliseconds) {
@@ -164,8 +163,7 @@ public class PooledDataSource implements DataSource {
   /**
    * The maximum number of active connections.
    *
-   * @param poolMaximumActiveConnections
-   *          The maximum number of active connections
+   * @param poolMaximumActiveConnections The maximum number of active connections
    */
   public void setPoolMaximumActiveConnections(int poolMaximumActiveConnections) {
     this.poolMaximumActiveConnections = poolMaximumActiveConnections;
@@ -175,8 +173,7 @@ public class PooledDataSource implements DataSource {
   /**
    * The maximum number of idle connections.
    *
-   * @param poolMaximumIdleConnections
-   *          The maximum number of idle connections
+   * @param poolMaximumIdleConnections The maximum number of idle connections
    */
   public void setPoolMaximumIdleConnections(int poolMaximumIdleConnections) {
     this.poolMaximumIdleConnections = poolMaximumIdleConnections;
@@ -187,13 +184,11 @@ public class PooledDataSource implements DataSource {
    * The maximum number of tolerance for bad connection happens in one thread
    * which are applying for new {@link PooledConnection}.
    *
-   * @param poolMaximumLocalBadConnectionTolerance
-   *          max tolerance for bad connection happens in one thread
-   *
+   * @param poolMaximumLocalBadConnectionTolerance max tolerance for bad connection happens in one thread
    * @since 3.4.5
    */
   public void setPoolMaximumLocalBadConnectionTolerance(
-      int poolMaximumLocalBadConnectionTolerance) {
+    int poolMaximumLocalBadConnectionTolerance) {
     this.poolMaximumLocalBadConnectionTolerance = poolMaximumLocalBadConnectionTolerance;
   }
 
@@ -201,8 +196,7 @@ public class PooledDataSource implements DataSource {
    * The maximum time a connection can be used before it *may* be
    * given away again.
    *
-   * @param poolMaximumCheckoutTime
-   *          The maximum time
+   * @param poolMaximumCheckoutTime The maximum time
    */
   public void setPoolMaximumCheckoutTime(int poolMaximumCheckoutTime) {
     this.poolMaximumCheckoutTime = poolMaximumCheckoutTime;
@@ -212,8 +206,7 @@ public class PooledDataSource implements DataSource {
   /**
    * The time to wait before retrying to get a connection.
    *
-   * @param poolTimeToWait
-   *          The time to wait
+   * @param poolTimeToWait The time to wait
    */
   public void setPoolTimeToWait(int poolTimeToWait) {
     this.poolTimeToWait = poolTimeToWait;
@@ -223,8 +216,7 @@ public class PooledDataSource implements DataSource {
   /**
    * The query to be used to check a connection.
    *
-   * @param poolPingQuery
-   *          The query
+   * @param poolPingQuery The query
    */
   public void setPoolPingQuery(String poolPingQuery) {
     this.poolPingQuery = poolPingQuery;
@@ -234,8 +226,7 @@ public class PooledDataSource implements DataSource {
   /**
    * Determines if the ping query should be used.
    *
-   * @param poolPingEnabled
-   *          True if we need to check a connection before using it
+   * @param poolPingEnabled True if we need to check a connection before using it
    */
   public void setPoolPingEnabled(boolean poolPingEnabled) {
     this.poolPingEnabled = poolPingEnabled;
@@ -246,8 +237,7 @@ public class PooledDataSource implements DataSource {
    * If a connection has not been used in this many milliseconds, ping the
    * database to make sure the connection is still good.
    *
-   * @param milliseconds
-   *          the number of milliseconds of inactivity that will trigger a ping
+   * @param milliseconds the number of milliseconds of inactivity that will trigger a ping
    */
   public void setPoolPingConnectionsNotUsedFor(int milliseconds) {
     this.poolPingConnectionsNotUsedFor = milliseconds;
@@ -521,7 +511,6 @@ public class PooledDataSource implements DataSource {
       }
       throw new SQLException("PooledDataSource: Unknown severe error condition.  The connection pool returned a null connection.");
     }
-
     return conn;
   }
 
@@ -545,7 +534,7 @@ public class PooledDataSource implements DataSource {
     }
 
     if (result && poolPingEnabled && poolPingConnectionsNotUsedFor >= 0
-        && conn.getTimeElapsedSinceLastUse() > poolPingConnectionsNotUsedFor) {
+      && conn.getTimeElapsedSinceLastUse() > poolPingConnectionsNotUsedFor) {
       try {
         if (log.isDebugEnabled()) {
           log.debug("Testing connection " + conn.getRealHashCode() + " ...");
@@ -580,8 +569,7 @@ public class PooledDataSource implements DataSource {
   /**
    * Unwraps a pooled connection to get to the 'real' connection
    *
-   * @param conn
-   *          - the pooled connection to unwrap
+   * @param conn - the pooled connection to unwrap
    * @return The 'real' connection
    */
   public static Connection unwrapConnection(Connection conn) {

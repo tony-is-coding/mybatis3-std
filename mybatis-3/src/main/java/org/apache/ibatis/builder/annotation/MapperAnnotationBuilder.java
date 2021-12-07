@@ -115,10 +115,10 @@ public class MapperAnnotationBuilder {
   public void parse() {
     String resource = type.toString();
     if (!configuration.isResourceLoaded(resource)) {
-      loadXmlResource();
+      loadXmlResource(); //README: 这里会进行XML文件的加载
       configuration.addLoadedResource(resource);
       assistant.setCurrentNamespace(type.getName());
-      parseCache();
+      parseCache(); //README: 为每个 namespace 创建对应的 cache
       parseCacheRef();
       for (Method method : type.getMethods()) {
         if (!canHaveStatement(method)) {
@@ -176,7 +176,7 @@ public class MapperAnnotationBuilder {
       }
       if (inputStream != null) {
         XMLMapperBuilder xmlParser = new XMLMapperBuilder(inputStream, assistant.getConfiguration(), xmlResource, configuration.getSqlFragments(), type.getName());
-        xmlParser.parse();
+        xmlParser.parse(); // XMLMapperBuilder.parse()
       }
     }
   }
@@ -296,12 +296,11 @@ public class MapperAnnotationBuilder {
   void parseStatement(Method method) {
     final Class<?> parameterTypeClass = getParameterType(method);
     final LanguageDriver languageDriver = getLanguageDriver(method);
-
     getAnnotationWrapper(method, true, statementAnnotationTypes).ifPresent(statementAnnotation -> {
       final SqlSource sqlSource = buildSqlSource(statementAnnotation.getAnnotation(), parameterTypeClass, languageDriver, method);
       final SqlCommandType sqlCommandType = statementAnnotation.getSqlCommandType();
       final Options options = getAnnotationWrapper(method, false, Options.class).map(x -> (Options) x.getAnnotation()).orElse(null);
-      // 每个执行方法的权限的名称是 类型 + 方法名称
+      // 每个执行方法的全限定名称是 类型 + 方法名称
       final String mappedStatementId = type.getName() + "." + method.getName();
 
       final KeyGenerator keyGenerator;

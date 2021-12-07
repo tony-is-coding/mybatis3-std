@@ -45,6 +45,7 @@ public class SqlSessionFactoryBuilder {
     return build(reader, null, properties);
   }
 
+  // README: 从一个reader 中
   public SqlSessionFactory build(Reader reader, String environment, Properties properties) {
     try {
       XMLConfigBuilder parser = new XMLConfigBuilder(reader, environment, properties);

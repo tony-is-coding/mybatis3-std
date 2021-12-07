@@ -124,6 +124,7 @@ public class XMLConfigBuilder extends BaseBuilder {
       environmentsElement(root.evalNode("environments"));
       databaseIdProviderElement(root.evalNode("databaseIdProvider"));
       typeHandlerElement(root.evalNode("typeHandlers"));
+      //README: 解析 mapper
       mapperElement(root.evalNode("mappers"));
     } catch (Exception e) {
       throw new BuilderException("Error parsing SQL Mapper Configuration. Cause: " + e, e);
@@ -287,6 +288,7 @@ public class XMLConfigBuilder extends BaseBuilder {
       for (XNode child : context.getChildren()) {
         String id = child.getStringAttribute("id");
         if (isSpecifiedEnvironment(id)) {
+          ReaderHelper.tip("开始解析数据库环境配置, 当前环境为: " + id);
           TransactionFactory txFactory = transactionManagerElement(child.evalNode("transactionManager"));
           DataSourceFactory dsFactory = dataSourceElement(child.evalNode("dataSource"));
           DataSource dataSource = dsFactory.getDataSource();
@@ -370,6 +372,7 @@ public class XMLConfigBuilder extends BaseBuilder {
 
   private void mapperElement(XNode parent) throws Exception {
     if (parent != null) {
+      //README: 支持 1.本地resource指定 2. url resource指定 3.interface指定 4.package指定; 都允许指定多项
       for (XNode child : parent.getChildren()) {
         if ("package".equals(child.getName())) {
           String mapperPackage = child.getStringAttribute("name");
@@ -392,7 +395,7 @@ public class XMLConfigBuilder extends BaseBuilder {
             }
           } else if (resource == null && url == null && mapperClass != null) {
             Class<?> mapperInterface = Resources.classForName(mapperClass);
-            configuration.addMapper(mapperInterface);
+            configuration.addMapper(mapperInterface);  // 接口形式mapper解析,不通过xml文件配置解析
           } else {
             throw new BuilderException("A mapper element may only specify a url, resource or class, but not more than one.");
           }
