@@ -17,6 +17,7 @@ package org.apache.ibatis.builder.xml;
 
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.List;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -124,7 +125,7 @@ public class XMLConfigBuilder extends BaseBuilder {
       environmentsElement(root.evalNode("environments"));
       databaseIdProviderElement(root.evalNode("databaseIdProvider"));
       typeHandlerElement(root.evalNode("typeHandlers"));
-      //README: 解析 mapper
+      //README: 解析mapper
       mapperElement(root.evalNode("mappers"));
     } catch (Exception e) {
       throw new BuilderException("Error parsing SQL Mapper Configuration. Cause: " + e, e);
@@ -373,7 +374,8 @@ public class XMLConfigBuilder extends BaseBuilder {
   private void mapperElement(XNode parent) throws Exception {
     if (parent != null) {
       //README: 支持 1.本地resource指定 2. url resource指定 3.interface指定 4.package指定; 都允许指定多项
-      for (XNode child : parent.getChildren()) {
+      List<XNode> children = parent.getChildren();
+      for (XNode child : children) {
         if ("package".equals(child.getName())) {
           String mapperPackage = child.getStringAttribute("name");
           configuration.addMappers(mapperPackage);

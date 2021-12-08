@@ -12,8 +12,18 @@
     resultType:返回结果集类型
     #{}占位符:起到占位作用,如果传入的是基本类型(string,long,double,int,boolean,float等),那么#{}中的变量名称可以随意写.
      -->
+
     <select id="queryById" parameterType="java.lang.Integer" resultType="com.mybatis.testing.entity.User">
-        select * from t_user_base where id=#{userId}
+        select * from t_user_base where id=${userId}
+    </select>
+
+    <select id="queryByName" resultType="com.mybatis.testing.entity.User">
+        select * from t_user_base where name='${userName}' and addr='${addr}'
+    </select>
+
+
+    <select id="queryByName1" resultType="com.mybatis.testing.entity.User">
+        select * from t_user_base where name=#{userName} and addr=#{addr}
     </select>
 
 
@@ -34,7 +44,6 @@
     </insert>
 
 
-
     <insert id="batchInsert" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
         INSERT INTO
         t_user_base (name,age,addr,email,mobile)
@@ -43,5 +52,6 @@
             (#{user.name},#{user.age},#{user.addr},#{user.email},#{user.mobile})
         </foreach>
     </insert>
+
 
 </mapper>

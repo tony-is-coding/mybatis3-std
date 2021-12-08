@@ -63,10 +63,10 @@ public class DefaultParameterHandler implements ParameterHandler {
   // 将参数设置绑定到对应的PreparedStatement 上
   @Override
   public void setParameters(PreparedStatement ps) {
-    ReaderHelper.tip("参数绑定");
     ErrorContext.instance().activity("setting parameters").object(mappedStatement.getParameterMap().getId());
     List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
     if (parameterMappings != null) {
+      ReaderHelper.tip("进行#标志参数替换,当前sql为: " + ps.toString());
       for (int i = 0; i < parameterMappings.size(); i++) {
         ParameterMapping parameterMapping = parameterMappings.get(i);
         if (parameterMapping.getMode() != ParameterMode.OUT) {
@@ -95,6 +95,7 @@ public class DefaultParameterHandler implements ParameterHandler {
         }
       }
     }
+    ReaderHelper.tip("完成#标志参数替换,当前sql为: " + ps.toString());
   }
 
 }

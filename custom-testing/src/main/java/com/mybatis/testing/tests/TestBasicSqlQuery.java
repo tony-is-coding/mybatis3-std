@@ -1,8 +1,10 @@
 package com.mybatis.testing.tests;
 
 import com.mybatis.testing.entity.Account;
+import com.mybatis.testing.entity.User;
 import com.mybatis.testing.helpers.XMLBasedTestingHelper;
 import com.mybatis.testing.mapper.AccountMapper;
+import com.mybatis.testing.mapper.UserMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
@@ -29,13 +31,22 @@ public class TestBasicSqlQuery {
         XMLBasedTestingHelper helper = new XMLBasedTestingHelper();
 
         SqlSession session = helper.openSession();
-        AccountMapper mapper = session.getMapper(AccountMapper.class); // 获取被代理的 mapper
-        // 此时方法执行会进入到 MapperProxy.invoke方法内去, 再交由sqlSession 去进行具体的执行代理
-        Account account = mapper.findByAccountId(1);
-        assert account != null;
-        System.out.println(account);
-        session.close();
+//        AccountMapper mapper = session.getMapper(AccountMapper.class); // 获取被代理的 mapper
+//        // 此时方法执行会进入到 MapperProxy.invoke方法内去, 再交由sqlSession 去进行具体的执行代理
+//        Account account = mapper.findByAccountId(1);
+//        assert account != null;
+//        System.out.println(account);
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        String userName = "nkvMP";
+        String addr = "ZYupZ";
+        System.out.println("\n\n========================================== 开始动态sql $ 模式查询 ================================\n");
+        User user = mapper.queryByName(userName, addr);
+        System.out.println(user);
 
+        System.out.println("\n\n========================================== 开始动态sql # 模式查询 ================================\n");
+        User user1 = mapper.queryByName1(userName, addr);
+        System.out.println(user1);
+        session.close();
     }
 
 

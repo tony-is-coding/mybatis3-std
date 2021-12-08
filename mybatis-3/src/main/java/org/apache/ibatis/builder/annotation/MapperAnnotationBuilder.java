@@ -159,6 +159,9 @@ public class MapperAnnotationBuilder {
   }
 
   private void loadXmlResource() {
+    // 当以接口形式或者指定 annotation 形式来进行statement注入时, 默认会以接口全限定名作为path查找${interface_name}.xml,
+    // 所以会默认查找mapper 接口对应包下的对应 ${interface_name}.xml, 这里的逻辑需要单独注意
+
     // Spring may not know the real resource name so we check a flag
     // to prevent loading again a resource twice
     // this flag is set at XMLMapperBuilder#bindMapperForNamespace

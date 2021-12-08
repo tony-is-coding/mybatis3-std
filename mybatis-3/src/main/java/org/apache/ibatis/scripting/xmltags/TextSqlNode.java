@@ -21,6 +21,7 @@ import org.apache.ibatis.parsing.GenericTokenParser;
 import org.apache.ibatis.parsing.TokenHandler;
 import org.apache.ibatis.scripting.ScriptingException;
 import org.apache.ibatis.type.SimpleTypeRegistry;
+import org.apache.ibatis.util.ReaderHelper;
 
 /**
  * @author Clinton Begin
@@ -47,11 +48,16 @@ public class TextSqlNode implements SqlNode {
 
   @Override
   public boolean apply(DynamicContext context) {
+    ReaderHelper.tip("进行`$`替换: " + text.trim());
     GenericTokenParser parser = createParser(new BindingTokenParser(context, injectionFilter));
-    context.appendSql(parser.parse(text));
+    String resSql = parser.parse(text);
+    ReaderHelper.tip("完成`$`替换: " + resSql.trim());
+    context.appendSql(resSql);
     return true;
   }
 
+
+  //README: mybatis认为从`${`到 `}` 的部分为动态sql内容
   private GenericTokenParser createParser(TokenHandler handler) {
     return new GenericTokenParser("${", "}", handler);
   }
@@ -68,6 +74,7 @@ public class TextSqlNode implements SqlNode {
 
     @Override
     public String handleToken(String content) {
+      //README: Mybatis 是在此处进行的 对应 $ 动态啊sql 替换的,
       Object parameter = context.getBindings().get("_parameter");
       if (parameter == null) {
         context.getBindings().put("value", null);

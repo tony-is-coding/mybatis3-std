@@ -662,7 +662,7 @@ public class Configuration {
 
   public Executor newExecutor(Transaction transaction, ExecutorType executorType) {
     executorType = executorType == null ? defaultExecutorType : executorType;
-    executorType = executorType == null ? ExecutorType.SIMPLE : executorType; // 此处避免用户将executorType设置为null
+//    executorType = executorType == null ? ExecutorType.SIMPLE : executorType; // 此处避免用户将executorType设置为null
     Executor executor;
     if (ExecutorType.BATCH == executorType) {
       executor = new BatchExecutor(this, transaction);
