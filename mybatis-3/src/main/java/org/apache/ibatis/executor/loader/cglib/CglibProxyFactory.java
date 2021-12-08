@@ -137,6 +137,7 @@ public class CglibProxyFactory implements ProxyFactory {
               return original;
             }
           } else {
+            //README: 此处完成延迟加载的功能实现
             if (lazyLoader.size() > 0 && !FINALIZE_METHOD.equals(methodName)) {
               if (aggressive || lazyLoadTriggerMethods.contains(methodName)) {
                 lazyLoader.loadAll();
