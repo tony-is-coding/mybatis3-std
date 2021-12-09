@@ -48,6 +48,7 @@ public class TextSqlNode implements SqlNode {
 
   @Override
   public boolean apply(DynamicContext context) {
+    ReaderHelper.formatTrace();
     ReaderHelper.tip("进行`$`替换: " + text.trim());
     GenericTokenParser parser = createParser(new BindingTokenParser(context, injectionFilter));
     String resSql = parser.parse(text);

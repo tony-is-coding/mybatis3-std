@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+Caller ->  SqlSession:  openSession() 创建一个sqlSession, \n此时会创建一个Executor对象,默认的  \n一级缓存就是在此时创建BaseExecutor
+SqlSession -> MapperProxy: getProxy(Class<?>)获取mapper代理, \n代理执行除Object定义外的所有方法 \n 针对接口的default方法,直接执行参数, \n不做代理增强
+MapperProxy -> MapperMethodInvoker: cachedInvoker(Method) \n从缓存中获取方法Invoker
+MapperMethodInvoker -> MapperMethod: invoke() \n执行方法代理
+MapperMethod -> MapperMethod: execute(SqlSession, Object[]) \n执行方法上绑定的对应的数据 \n库行为
+SqlSession ->  SqlSession: query() / queryCursor() / update() \n数据库操作Command, 主要在 \nDefaultSqlSession中完成实现
+SqlSession -> CachingExecutor: 开启`cacheEnabled`配置
+CachingExecutor -> TransactionalCacheManager: 开启二级缓存情况下 \n优先查询二级缓存
+CachingExecutor -> BaseExecutor: 查询不到缓存时,委托DB查询
+SqlSession -> BaseExecutor: 未开启`cacheEnabled`配置
+
+BaseExecutor -> BaseExecutor: query(MappedStatement,Object,\nRowBounds,ResultHandler)\n组装cacheKey,同时会将$绑定的 \nsql进行基本的文本替换
+BaseExecutor -> PerpetualCache: localCache.getObject() \n尝试一级缓存查询
+BaseExecutor -> SimpleExecutor: xxxFromDataBase()
+SimpleExecutor -> StatementHandler: prepareStatement() \n准备statement参数 \n解析绑定
+StatementHandler -> StatementHandler: parameterize() \n参数替换绑定到sql语句上
+StatementHandler -> ParameterHandler: setParameters() \n设置参数
+StatementHandler -> ResultSetHandler: handleResultSets() \n处理操作的结果集
+ResultSetHandler -> ResultHandler: 处理类型映射转换
+ResultSetHandler -> StatementHandler: 返回操作的结果集合
+StatementHandler -> SimpleExecutor:
+SimpleExecutor -> SqlSession:
+SqlSession -> Caller: 返回操作结果
+
+@enduml

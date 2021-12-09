@@ -19,7 +19,7 @@ public class XMLBasedTestingHelper {
     }
 
     public XMLBasedTestingHelper() {
-        this.resourcePath = "mapper-config.xml";
+        this.resourcePath = "mybatis-config.xml";
         init();
     }
 

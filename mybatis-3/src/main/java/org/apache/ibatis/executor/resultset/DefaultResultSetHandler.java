@@ -62,6 +62,7 @@ import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.apache.ibatis.util.MapUtil;
+import org.apache.ibatis.util.ReaderHelper;
 
 /**
  * @author Clinton Begin
@@ -180,6 +181,8 @@ public class DefaultResultSetHandler implements ResultSetHandler {
   //
   @Override
   public List<Object> handleResultSets(Statement stmt) throws SQLException {
+    ReaderHelper.tip("处理列表结果");
+    ReaderHelper.formatTrace();
     ErrorContext.instance().activity("handling results").object(mappedStatement.getId());
 
     final List<Object> multipleResults = new ArrayList<>();
@@ -218,6 +221,8 @@ public class DefaultResultSetHandler implements ResultSetHandler {
 
   @Override
   public <E> Cursor<E> handleCursorResultSets(Statement stmt) throws SQLException {
+    ReaderHelper.tip("处理游标结果");
+    ReaderHelper.formatTrace();
     ErrorContext.instance().activity("handling cursor results").object(mappedStatement.getId());
 
     ResultSetWrapper rsw = getFirstResultSet(stmt);

@@ -1,1 +1,0 @@
-### What Happened When An SQL Command Being Execute In Mybatis

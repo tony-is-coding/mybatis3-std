@@ -48,6 +48,7 @@ import org.apache.ibatis.reflection.MetaClass;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
+import org.apache.ibatis.util.ReaderHelper;
 
 /**
  * @author Clinton Begin
@@ -91,6 +92,7 @@ public class XMLMapperBuilder extends BaseBuilder {
   }
 
   public void parse() {
+    ReaderHelper.tip("开始加载mapper xml配置文件: " + resource);
     if (!configuration.isResourceLoaded(resource)) {
       configurationElement(parser.evalNode("/mapper"));
       configuration.addLoadedResource(resource);

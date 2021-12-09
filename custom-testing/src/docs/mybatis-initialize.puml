@@ -1,17 +1,19 @@
-@startuml
-'https://plantuml.com/sequence-diagram
-
-'autonumber
-'
-'Alice -> Bob: Authentication Request
-'Bob --> Alice: Authentication Response
-'
-'Alice -> Bob: Another authentication Request
-'Alice <-- Bob: another authentication Response
-
 
 @startuml
-SqlSessionFactoryBuilder ->  XMLConfigBuilder : .build(InputStream)
 
-
+autonumber
+SqlSessionFactoryBuilder ->  XMLConfigBuilder : build(InputStream) \n创建一个XML解析器
+XMLConfigBuilder -> XMLConfigBuilder: parse()
+XMLConfigBuilder -> XMLConfigBuilder: parseConfiguration(XNode) 解析XML配置文件中的/configuration节点内容
+XMLConfigBuilder -> XMLConfigBuilder: propertiesElement(XNode) 加载各类配置项以及环境
+XMLConfigBuilder -> XMLConfigBuilder: mapperElement(XNode) 解析mapper配置
+XMLConfigBuilder -> Configuration: 如果是通过package指定 或者 通过class接口指定
+Configuration -> MapperRegister: addMapper()
+MapperRegister -> MapperAnnotationBuilder: addMapper()
+MapperRegister -> XMLMapperBuilder: loadXmlResource() 加载资源
+XMLConfigBuilder -> XMLMapperBuilder: 如果是通过 resource 或者 url 指定
+XMLMapperBuilder -> XMLMapperBuilder: parse() 开始解析
+XMLMapperBuilder -> Configuration: configurationElement(XNode) 加载缓存、parameterMap、resultMap、dbId、statement等
+XMLConfigBuilder -> SqlSessionFactoryBuilder: 完成解析,返回Configuration对象
+SqlSessionFactoryBuilder -> SqlSessionFactoryBuilder: build(Configuration) 生成一个 \nDefaultSqlSessionFactory
 @enduml
