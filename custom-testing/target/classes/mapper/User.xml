@@ -23,7 +23,7 @@
 
 
     <select id="queryByName1" resultType="com.mybatis.testing.entity.User">
-        select * from t_user_base where name=#{userName} and addr=#{addr}
+        select * from t_user_base where name=#{userName} and addr='${addr}'
     </select>
 
 

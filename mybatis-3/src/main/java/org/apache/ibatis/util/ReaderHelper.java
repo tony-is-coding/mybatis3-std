@@ -45,6 +45,7 @@ public final class ReaderHelper {
       System.out.println(space + traceElement.toString());
       space = "  " + space;
     }
+    System.out.println("\n\n");
   }
 
 }
