@@ -1,5 +1,6 @@
 package com.mybatis.testing.tests;
 
+import com.mybatis.testing.dto.UserQueryDTO;
 import com.mybatis.testing.entity.Account;
 import com.mybatis.testing.entity.User;
 import com.mybatis.testing.helpers.XMLBasedTestingHelper;
@@ -7,6 +8,10 @@ import com.mybatis.testing.mapper.AccountMapper;
 import com.mybatis.testing.mapper.UserMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class TestBasicSqlQuery {
     // 执行顺序:
@@ -18,7 +23,7 @@ public class TestBasicSqlQuery {
     //  2.2.2 CachingExecutor 则是指缓存执行器
     //  2.2.3  mybatis中有所谓的一级缓存,二级缓存说法;
     //         一级缓存默认开启, 在 BaseExecutor的query中具体实现, 由PerpetualCache实现,一级缓存是 sqlSession绑定的, 在openSession
-    //              创建session时会船舰对应的 executor, 每个executor持有单独的一个 本地cache
+    //              创建session时会船舰对应的 executor, 每个executor持有单独的一个 本地cache (这是sqlSession不能再多线程)
     //              在BaseExecutor的构造方法中默认初始了一个 PerpetualCache 实例
     //         二级缓存默认关闭, 在CachingExecutor中实现, 为了解决脏读问题, 分化出了 全局缓存Cache 与事务缓存 TransactionCache,
     //              Transaction是基于装饰模式对Cache接口实现包装以达到对事务支持的功能;
@@ -43,11 +48,18 @@ public class TestBasicSqlQuery {
 //        User user = mapper.queryByName(userName, addr);
 //        System.out.println(user);
 
-        for (int i = 0; i < 3; i++) {
-            System.out.println("\n\n========================================== 开始动态sql # 模式查询 ================================\n");
-            User user1 = mapper.queryByName1(userName, addr);
-            System.out.println(user1);
-        }
+//        for (int i = 0; i < 3; i++) {
+//            System.out.println("\n\n========================================== 开始动态sql # 模式查询 ================================\n");
+//            User user1 = mapper.queryByName1(userName, addr);
+//            System.out.println(user1);
+//        }
+//        UserQueryDTO dto = new UserQueryDTO();
+//        User user = mapper.queryByDTO(dto);
+//        System.out.println(user);
+
+        List<User> users = mapper.queryTestInCause(new LinkedList<>());
+        System.out.println(users);
+
         session.close();
     }
 

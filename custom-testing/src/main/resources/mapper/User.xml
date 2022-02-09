@@ -14,16 +14,44 @@
      -->
 
     <select id="queryById" parameterType="java.lang.Integer" resultType="com.mybatis.testing.entity.User">
-        select * from t_user_base where id=${userId}
+        select *
+        from t_user_base
+        where id = ${userId}
     </select>
 
     <select id="queryByName" resultType="com.mybatis.testing.entity.User">
-        select * from t_user_base where name='${userName}' and addr='${addr}'
+        select *
+        from t_user_base
+        where name = '${userName}'
+          and addr = '${addr}'
     </select>
 
 
     <select id="queryByName1" resultType="com.mybatis.testing.entity.User">
-        select * from t_user_base where name=#{userName} and addr='${addr}'
+        select *
+        from t_user_base
+        where name = #{userName}
+          and addr = '${addr}'
+    </select>
+
+
+    <select id="queryByDTO" parameterType="com.mybatis.testing.dto.UserQueryDTO"
+            resultType="com.mybatis.testing.entity.User">
+        select *
+        from t_user_base
+        where name = #{userName}
+          and addr = #{addr}
+    </select>
+
+    <select id="queryTestInCause" parameterType="java.util.List" resultType="com.mybatis.testing.entity.User">
+        select * from t_user_base
+        <if test=" nameList != null and nameList.size() > 0 ">
+            where name in
+            <foreach collection="nameList" index="index" item="na" separator="," open="(" close=")">
+                #{na}
+            </foreach>
+        </if>
+
     </select>
 
 

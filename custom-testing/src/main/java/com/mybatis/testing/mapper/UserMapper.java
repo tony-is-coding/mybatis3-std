@@ -1,5 +1,6 @@
 package com.mybatis.testing.mapper;
 
+import com.mybatis.testing.dto.UserQueryDTO;
 import com.mybatis.testing.entity.User;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,6 +14,10 @@ public interface UserMapper {
 
     // 使用 # 作为占位符
     User queryByName1(@Param("userName") String userName, @Param("addr") String addr);
+
+    User queryByDTO(UserQueryDTO dto);
+
+    List<User> queryTestInCause(@Param("nameList") List<String> nameList);
 
     Integer insert(User user);
 

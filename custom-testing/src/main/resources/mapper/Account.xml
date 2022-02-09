@@ -20,7 +20,6 @@
         select * from account where user_id=#{userId}
     </select>
 
-
     <!--
     #{}:如果传入的是pojo类型,那么#{}中的变量名称必须是pojo中对应的属性.属性.属性.....
     如果要返回数据库自增主键:可以使用select LAST_INSERT_ID()
@@ -36,5 +35,8 @@
         </selectKey>
         insert into account (account_id,user_id,amount) values(#{account_id},#{user_id},#{amount})
     </insert>
+
+
+
 
 </mapper>
