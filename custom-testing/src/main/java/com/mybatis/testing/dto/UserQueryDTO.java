@@ -9,20 +9,23 @@ package com.mybatis.testing.dto;
 
 public class UserQueryDTO {
 
-    public String getUserName() {
-        return "nkvMP";
+    private final String userName;
+    private final String addr;
+
+    public UserQueryDTO(String userName, String addr) {
+        this.userName = userName;
+        this.addr = addr;
     }
 
-    public void setUserName(String userName) {
+
+    public String getUserName() {
+        return userName;
     }
+
 
     public String getAddr() {
-        return "ZYupZ";
+        return addr;
     }
-
-    public void setAddr(String addr) {
-    }
-
 
 
 }

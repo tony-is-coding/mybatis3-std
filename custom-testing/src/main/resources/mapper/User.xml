@@ -43,6 +43,25 @@
           and addr = #{addr}
     </select>
 
+
+    <select id="queryChooseWhen" parameterType="com.mybatis.testing.dto.UserQueryDTO"
+            resultType="com.mybatis.testing.entity.User">
+        select * from t_user_base
+        where 1=1
+        <choose>
+            <when test="userName != null">
+                and name = #{userName}
+            </when>
+            <when test="addr != null">
+                and addr = #{addr}
+            </when>
+            <otherwise>
+                and name = "xxx" and addr = "xxx"
+            </otherwise>
+        </choose>
+    </select>
+
+
     <select id="queryTestInCause" parameterType="java.util.List" resultType="com.mybatis.testing.entity.User">
         select * from t_user_base
         <if test=" nameList != null and nameList.size() > 0 ">

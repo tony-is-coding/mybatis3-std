@@ -1,17 +1,11 @@
 package com.mybatis.testing.tests;
 
 import com.mybatis.testing.dto.UserQueryDTO;
-import com.mybatis.testing.entity.Account;
 import com.mybatis.testing.entity.User;
 import com.mybatis.testing.helpers.XMLBasedTestingHelper;
-import com.mybatis.testing.mapper.AccountMapper;
 import com.mybatis.testing.mapper.UserMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
-
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 public class TestBasicSqlQuery {
     // 执行顺序:
@@ -47,18 +41,23 @@ public class TestBasicSqlQuery {
 //        System.out.println("\n\n========================================== 开始动态sql $ 模式查询 ================================\n");
 //        User user = mapper.queryByName(userName, addr);
 //        System.out.println(user);
-
-//        for (int i = 0; i < 3; i++) {
-//            System.out.println("\n\n========================================== 开始动态sql # 模式查询 ================================\n");
-//            User user1 = mapper.queryByName1(userName, addr);
-//            System.out.println(user1);
-//        }
-//        UserQueryDTO dto = new UserQueryDTO();
-//        User user = mapper.queryByDTO(dto);
-//        System.out.println(user);
-
-        List<User> users = mapper.queryTestInCause(new LinkedList<>());
-        System.out.println(users);
+//
+////        for (int i = 0; i < 3; i++) {
+//        System.out.println("\n\n========================================== 开始动态sql # 模式查询 ================================\n");
+//        User user1 = mapper.queryByName1(userName, addr);
+//        System.out.println(user1);
+////        }
+        UserQueryDTO dto1 = new UserQueryDTO(userName, null);
+        UserQueryDTO dto2 = new UserQueryDTO(userName, addr);
+        UserQueryDTO dto3 = new UserQueryDTO(null, null);
+        System.out.println("\n\n========================================== 开始动态条件1 # 模式查询 ================================\n");
+        System.out.println(mapper.queryChooseWhen(dto1));
+        System.out.println("\n\n========================================== 开始动态条件2 # 模式查询 ================================\n");
+        System.out.println(mapper.queryChooseWhen(dto2));
+        System.out.println("\n\n========================================== 开始动态条件3 # 模式查询 ================================\n");
+        System.out.println(mapper.queryChooseWhen(dto3));
+//        List<User> users = mapper.queryTestInCause(new LinkedList<>());
+//        System.out.println(users);
 
         session.close();
     }

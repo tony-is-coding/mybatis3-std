@@ -17,6 +17,8 @@ public interface UserMapper {
 
     User queryByDTO(UserQueryDTO dto);
 
+    User queryChooseWhen(UserQueryDTO dto);
+
     List<User> queryTestInCause(@Param("nameList") List<String> nameList);
 
     Integer insert(User user);
