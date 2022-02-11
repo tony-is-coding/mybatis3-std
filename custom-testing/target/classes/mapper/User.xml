@@ -64,7 +64,7 @@
 
     <select id="queryTestInCause" parameterType="java.util.List" resultType="com.mybatis.testing.entity.User">
         select * from t_user_base
-        <if test=" nameList != null and nameList.size() > 0 ">
+        <if test=" nameList != null and nameList.size() > 0 and nameList[0] != 'helloworld' ">
             where name in
             <foreach collection="nameList" index="index" item="na" separator="," open="(" close=")">
                 #{na}

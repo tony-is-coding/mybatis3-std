@@ -7,6 +7,9 @@ import com.mybatis.testing.mapper.UserMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class TestBasicSqlQuery {
     // 执行顺序:
     //1. MapperProxy.invoke -> MapperMethodInvoker.invoke  -> mapperMethod.execute
@@ -47,17 +50,21 @@ public class TestBasicSqlQuery {
 //        User user1 = mapper.queryByName1(userName, addr);
 //        System.out.println(user1);
 ////        }
-        UserQueryDTO dto1 = new UserQueryDTO(userName, null);
-        UserQueryDTO dto2 = new UserQueryDTO(userName, addr);
-        UserQueryDTO dto3 = new UserQueryDTO(null, null);
-        System.out.println("\n\n========================================== 开始动态条件1 # 模式查询 ================================\n");
-        System.out.println(mapper.queryChooseWhen(dto1));
-        System.out.println("\n\n========================================== 开始动态条件2 # 模式查询 ================================\n");
-        System.out.println(mapper.queryChooseWhen(dto2));
-        System.out.println("\n\n========================================== 开始动态条件3 # 模式查询 ================================\n");
-        System.out.println(mapper.queryChooseWhen(dto3));
-//        List<User> users = mapper.queryTestInCause(new LinkedList<>());
-//        System.out.println(users);
+//        UserQueryDTO dto1 = new UserQueryDTO(userName, null);
+//        UserQueryDTO dto2 = new UserQueryDTO(userName, addr);
+//        UserQueryDTO dto3 = new UserQueryDTO(null, null);
+//        System.out.println("\n\n========================================== 开始动态条件1 # 模式查询 ================================\n");
+//        System.out.println(mapper.queryChooseWhen(dto1));
+//        System.out.println("\n\n========================================== 开始动态条件2 # 模式查询 ================================\n");
+//        System.out.println(mapper.queryChooseWhen(dto2));
+//        System.out.println("\n\n========================================== 开始动态条件3 # 模式查询 ================================\n");
+//        System.out.println(mapper.queryChooseWhen(dto3));
+
+        LinkedList<String> nameLists = new LinkedList<>();
+        nameLists.add("helloworld");
+        nameLists.add("nkvMP");
+        List<User> users = mapper.queryTestInCause(nameLists);
+        System.out.println(users);
 
         session.close();
     }
