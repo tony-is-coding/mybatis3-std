@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <settings>
-        <setting name="cacheEnabled" value="false"/>
+        <setting name="cacheEnabled" value="true"/>
         <setting name="lazyLoadingEnabled" value="true"/>
         <setting name="multipleResultSetsEnabled" value="true"/>
         <setting name="useColumnLabel" value="true"/>
@@ -21,11 +21,11 @@
         <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
     </settings>
 
-<!--    <plugins>-->
-<!--        <plugin interceptor="com.mybatis.testing.plugins.ExamplePlugin">-->
-<!--            <property name="someProperty" value="100"/>-->
-<!--        </plugin>-->
-<!--    </plugins>-->
+    <plugins>
+        <plugin interceptor="com.mybatis.testing.plugins.ExamplePlugin">
+            <property name="someProperty" value="100"/>
+        </plugin>
+    </plugins>
 
 
     <environments default="development">

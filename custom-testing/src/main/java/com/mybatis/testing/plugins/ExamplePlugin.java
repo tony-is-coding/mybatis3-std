@@ -10,6 +10,7 @@ import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.util.ReaderHelper;
 
 import java.util.Properties;
 
@@ -23,6 +24,7 @@ public class ExamplePlugin implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
+        ReaderHelper.formatTrace();
         // implement pre-processing if needed
         System.out.println("拦截器: 开始拦截方法[" + invocation.getMethod().getName() + "] .......");
         Object returnObject = invocation.proceed();

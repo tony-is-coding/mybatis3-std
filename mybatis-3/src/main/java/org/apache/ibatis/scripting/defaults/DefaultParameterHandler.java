@@ -63,7 +63,7 @@ public class DefaultParameterHandler implements ParameterHandler {
   // 将参数设置绑定到对应的PreparedStatement 上
   @Override
   public void setParameters(PreparedStatement ps) {
-    ReaderHelper.formatTrace();
+//    ReaderHelper.formatTrace();
     ErrorContext.instance().activity("setting parameters").object(mappedStatement.getParameterMap().getId());
     List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
     if (parameterMappings != null) {

@@ -182,7 +182,7 @@ public class DefaultResultSetHandler implements ResultSetHandler {
   @Override
   public List<Object> handleResultSets(Statement stmt) throws SQLException {
     ReaderHelper.tip("处理列表结果");
-    ReaderHelper.formatTrace();
+//    ReaderHelper.formatTrace();
     ErrorContext.instance().activity("handling results").object(mappedStatement.getId());
 
     final List<Object> multipleResults = new ArrayList<>();

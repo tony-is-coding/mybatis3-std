@@ -41,15 +41,15 @@ public class TestBasicSqlQuery {
         UserMapper mapper = session.getMapper(UserMapper.class);
         String userName = "nkvMP";
         String addr = "ZYupZ";
-//        System.out.println("\n\n========================================== 开始动态sql $ 模式查询 ================================\n");
-//        User user = mapper.queryByName(userName, addr);
-//        System.out.println(user);
-//
-////        for (int i = 0; i < 3; i++) {
-//        System.out.println("\n\n========================================== 开始动态sql # 模式查询 ================================\n");
-//        User user1 = mapper.queryByName1(userName, addr);
-//        System.out.println(user1);
-////        }
+        System.out.println("\n\n========================================== 开始动态sql $ 模式查询 ================================\n");
+        User user = mapper.queryByName(userName, addr);
+        System.out.println(user);
+
+//        for (int i = 0; i < 3; i++) {
+        System.out.println("\n\n========================================== 开始动态sql # 模式查询 ================================\n");
+        User user1 = mapper.queryByName1(userName, addr);
+        System.out.println(user1);
+//        }
 //        UserQueryDTO dto1 = new UserQueryDTO(userName, null);
 //        UserQueryDTO dto2 = new UserQueryDTO(userName, addr);
 //        UserQueryDTO dto3 = new UserQueryDTO(null, null);

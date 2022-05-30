@@ -84,6 +84,7 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
   // README: 这里就是一个Mapper代理, 很强势的将所有的mapper 除去 object 定义的方法之外的方法都进行代理
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
     ReaderHelper.tip("代理执行方法 " + method.getName());
+//    ReaderHelper.formatTrace();
     try {
       if (Object.class.equals(method.getDeclaringClass())) {
         return method.invoke(this, args);

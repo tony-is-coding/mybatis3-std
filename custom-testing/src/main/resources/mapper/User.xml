@@ -31,7 +31,7 @@
         select *
         from t_user_base
         where name = #{userName}
-          and addr = '${addr}'
+          and addr = #{addr}
     </select>
 
 
